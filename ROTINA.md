@@ -32,7 +32,19 @@ Roda todo dia às 7h (horário de Brasília) como rotina do Claude Code na nuvem
    node scripts/coleta.mjs mesclar
    ```
 
-5. Faça commit **somente** de `data/clickup.json` no `main` e dê push:
+5. Envie os dados à planilha (Apps Script):
+
+   ```
+   node scripts/coleta.mjs enviar
+   ```
+
+   - `Planilha atualizada: ...`: está certo.
+   - `Envio à planilha pulado`: as variáveis `APPS_SCRIPT_URL` e `APPS_SCRIPT_TOKEN` não estão definidas. Siga em frente.
+   - `ERRO ...`: a falha é só da planilha. Não refaça a coleta. Siga para o commit e **mencione o erro** no resumo final e na notificação.
+
+   Instalação do Apps Script em [apps-script/README.md](apps-script/README.md).
+
+6. Faça commit **somente** de `data/clickup.json` no `main` e dê push:
 
    ```
    git add data/clickup.json
@@ -42,7 +54,7 @@ Roda todo dia às 7h (horário de Brasília) como rotina do Claude Code na nuvem
 
    Use a data de hoje no fuso de Brasília. Se o push for recusado porque o remoto avançou, rode `git pull --rebase origin main` e tente de novo.
 
-6. Não altere nenhum outro arquivo. Se algo falhar (conector indisponível, erro persistente na mesma página após 3 tentativas), **não faça commit**: termine relatando a fonte, a página e a mensagem de erro.
+7. Não altere nenhum outro arquivo. Se algo falhar (conector indisponível, erro persistente na mesma página após 3 tentativas), **não faça commit**: termine relatando a fonte, a página e a mensagem de erro.
 
 ## Como funciona
 

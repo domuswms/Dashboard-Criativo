@@ -21,7 +21,7 @@ No GitHub Pages, os módulos que usam ClickUp funcionam. Expansão, Plano, Vonde
 
 ## Planilha de banco de dados
 
-`planilha/banco-de-dados.xlsx` é o modelo do banco de dados para importar no Google Sheets. Tem histórico do ClickUp (carga de 13/10/2026), plano de 90 dias, fornecedores com catálogo × cadastrados × disponíveis, Vonder 60, lotes, metas e relatório planejado × realizado. Instruções na aba LEIA-ME. Para regerar: `python3 scripts/gerar_planilha.py` (precisa de `openpyxl`) e recalcular as fórmulas com LibreOffice.
+`planilha/banco-de-dados.xlsx` é o modelo do banco de dados para importar no Google Sheets. Tem histórico do ClickUp (carga de 13/10/2026), plano de 90 dias, fornecedores com catálogo × cadastrados × disponíveis, Vonder 60, lotes, metas e relatório planejado × realizado. Instruções na aba LEIA-ME. A rotina grava nela por um Web App em Apps Script (`apps-script/`, comando `node scripts/coleta.mjs enviar`). Para regerar: `python3 scripts/gerar_planilha.py` (precisa de `openpyxl`) e recalcular as fórmulas com LibreOffice.
 
 ## Módulos
 

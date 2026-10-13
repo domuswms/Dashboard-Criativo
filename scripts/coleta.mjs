@@ -5,6 +5,7 @@
 //   node scripts/coleta.mjs plano [--completa]   prepara a coleta e lista as páginas 0
 //   node scripts/coleta.mjs verificar            valida as páginas e diz se falta alguma
 //   node scripts/coleta.mjs mesclar              grava data/clickup.json
+//   node scripts/coleta.mjs enviar               envia data/clickup.json à planilha (Apps Script)
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -138,8 +139,30 @@ function mesclar() {
   console.log(`\n${rel(DADOS)} gravado (${saida.gerado_em}).`);
 }
 
+// Envia o arquivo de dados ao Web App do Apps Script, que atualiza a planilha pelo ID da tarefa.
+// Variáveis de ambiente: APPS_SCRIPT_URL (URL /exec do Web App) e APPS_SCRIPT_TOKEN.
+async function enviar() {
+  const url = process.env.APPS_SCRIPT_URL, token = process.env.APPS_SCRIPT_TOKEN;
+  if (!url || !token) sair('Envio à planilha pulado: defina APPS_SCRIPT_URL e APPS_SCRIPT_TOKEN.', 0);
+  if (!fs.existsSync(DADOS)) sair('Falta data/clickup.json. Rode mesclar antes.');
+  const d = ler(DADOS);
+  const corpo = { token, gerado_em: d.gerado_em,
+    fontes: Object.fromEntries(Object.entries(d.fontes).map(([k, v]) => [k, { tarefas: v.tarefas }])) };
+  let r;
+  try {
+    // text/plain evita a pré-checagem CORS; o Apps Script responde com redirecionamento, que o fetch segue.
+    r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(corpo), redirect: 'follow' });
+  } catch (e) { sair(`ERRO ao enviar à planilha: ${e.message}`); }
+  const texto = await r.text();
+  let res; try { res = JSON.parse(texto) } catch { sair(`ERRO: resposta inesperada (HTTP ${r.status}): ${texto.slice(0, 200)}`) }
+  if (!r.ok || !res.ok) sair(`ERRO da planilha: ${res.erro || 'HTTP ' + r.status}`);
+  console.log(`Planilha atualizada: ${res.novas} nova(s), ${res.atualizadas} atualizada(s), ${res.mudancas_de_status} mudança(s) de status, ${res.total} no total.`);
+}
+
 const [cmd, ...arg] = process.argv.slice(2);
 if (cmd === 'plano') plano(arg.includes('--completa'));
 else if (cmd === 'verificar') verificar();
 else if (cmd === 'mesclar') mesclar();
-else sair('Uso: node scripts/coleta.mjs plano [--completa] | verificar | mesclar');
+else if (cmd === 'enviar') await enviar();
+else sair('Uso: node scripts/coleta.mjs plano [--completa] | verificar | mesclar | enviar');
