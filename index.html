@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cadastro & Criativo · weaxis</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap">
+<style>
+:root{--lime:#ECFC30;--ink:#212121;--bg:#fff;--alt:#F5F5F5;--bd:#DBDBDB;--mut:#6b6b6b;--tx:#212121;--card:#F5F5F5;--bad:#b3261e;--f:"Greed Standard","Inter Tight",Inter,Helvetica,Arial,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#161616;--alt:#212121;--bd:#3a3a3a;--mut:#BDBDBD;--tx:#fff;--card:#212121}}
+:root[data-theme=dark]{--bg:#161616;--alt:#212121;--bd:#3a3a3a;--mut:#BDBDBD;--tx:#fff;--card:#212121}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--tx);font:16px/1.5 var(--f);display:flex}
+aside{width:248px;flex:none;background:var(--ink);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:4px;overflow:auto}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:500;letter-spacing:-.03em;margin:0 8px 4px}
+.sym{width:26px;height:26px;position:relative}.sym i{position:absolute;inset:3px 0;border-radius:50%;border:3px solid var(--lime);transform:rotate(-35deg)}.sym i+i{background:var(--lime);inset:7px 4px}
+.sub{font-size:13px;color:#BDBDBD;margin:0 8px 20px}
+nav button{all:unset;cursor:pointer;display:block;width:100%;padding:9px 12px;border-radius:999px;font-size:15px;color:#e8e8e8;box-sizing:border-box}
+nav button:hover{background:#333}nav button.on{background:var(--lime);color:var(--ink);font-weight:500}
+nav button.soon{color:#8a8a8a}nav small{font-size:11px;margin-left:6px;opacity:.7}
+.sig{margin-top:auto;font-size:13px;color:#BDBDBD;padding:16px 8px 0}
+main{flex:1;min-width:0;overflow:auto;padding:32px 40px 64px}
+.eye{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);font-weight:500}
+h1{font-size:clamp(28px,3.4vw,44px);line-height:1.05;letter-spacing:-.03em;font-weight:500;margin:4px 0 20px}
+mark{background:var(--lime);color:var(--ink);padding:0 .12em}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:20px}
+select,input{font:inherit;font-size:14px;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:999px;padding:8px 14px}
+select:hover,input:hover{border-color:var(--tx)}
+.btn{font:inherit;font-size:14px;font-weight:500;cursor:pointer;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:9px 18px}
+.btn:hover{background:var(--lime);color:var(--ink)}.btn.s{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+:focus-visible{outline:3px solid var(--lime);outline-offset:2px;box-shadow:0 0 0 5px var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:24px}
+.card{background:var(--card);border-radius:14px;padding:22px}
+.k{font-size:13px;color:var(--mut)}.v{font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1.1}.v.na{font-size:18px;color:var(--mut);padding-top:12px}
+.h{font-size:22px;font-weight:500;margin:0 0 12px}
+.row{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:14px}
+.row .t{flex:0 0 150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row .b{flex:1;height:10px;background:var(--bd);border-radius:6px;overflow:hidden}.row .b i{display:block;height:100%;background:var(--ink)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .row .b i{background:var(--lime)}}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.al{border-left:6px solid var(--lime);background:var(--card);border-radius:0 14px 14px 0;padding:12px 16px;margin:8px 0;font-size:14px}
+.al.r{border-color:var(--bad)}.al a{color:inherit}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-weight:500;color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:8px;border-bottom:1px solid var(--bd)}
+td{padding:9px 8px;border-bottom:1px solid var(--bd);vertical-align:top}td a{color:inherit}
+.chip{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:rgba(236,252,48,.35);margin:1px 2px 1px 0;white-space:nowrap}.chip.g{background:var(--bd)}.chip.r{background:var(--bad);color:#fff}
+.kan{display:flex;gap:14px;overflow-x:auto;align-items:flex-start}.col{flex:0 0 260px;background:var(--card);border-radius:14px;padding:14px}
+.col h3{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);font-weight:500}
+.tk{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:14px}
+.tk a{color:inherit;font-weight:500}.tk .m{font-size:12px;color:var(--mut);margin-top:4px}
+td input[type=number]{width:92px;padding:5px 8px;border-radius:8px}td input.n{width:150px}
+.msg{padding:24px;border-radius:14px;background:var(--card)}.stamp{font-size:12px;color:var(--mut)}
+.band{background:var(--lime);color:var(--ink);border-radius:14px;padding:28px;margin-top:28px}.band b{font-size:clamp(22px,2.6vw,32px);font-weight:500;letter-spacing:-.02em;line-height:1.1}
+@media(max-width:860px){body{flex-direction:column}aside{width:auto;flex-direction:row;flex-wrap:wrap;padding:12px}.sub,.sig{display:none}nav{display:flex;flex-wrap:wrap;gap:2px}nav button{width:auto;padding:7px 12px;font-size:14px}main{padding:20px 16px 48px}.row .t{flex-basis:96px}}
+.fl{display:flex;flex-direction:column;font-size:12px;color:var(--mut);gap:4px}.fl input,.fl select{border-radius:10px;width:100%}.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.wide{grid-column:1/-1}dialog{border:0;border-radius:14px;max-width:780px;width:92vw;max-height:90vh;overflow:auto;background:var(--bg);color:var(--tx);padding:24px}dialog::backdrop{background:rgba(0,0,0,.55)}.gt{position:relative;height:22px;background:var(--bd);border-radius:6px}.gt i{position:absolute;top:3px;bottom:3px;background:var(--ink);border-radius:4px}.gt i.f{background:var(--lime);outline:1px solid var(--ink)}tr[data-e]:hover{background:var(--card)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<aside>
+  <div class="logo"><span class="sym"><i></i><i></i></span>weaxis</div>
+  <div class="sub">Cadastro &amp; Criativo</div>
+  <nav id="nav"></nav>
+  <div class="sig">nós somos o eixo<br>weaxis.com</div>
+</aside>
+<main id="main"></main>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const DAY=864e5, SRC={
+  anuncios:['Anúncios (Criativo)',{list_ids:['901312757364']}],
+  compras:['Compras',{list_ids:['901312319816']}],
+  itajai:['Pasta Itajaí-SC',{folder_ids:['90137504399']}],
+  londrina:['Pasta Londrina-PR',{folder_ids:['90137507791']}]};
+const MODS=[['painel','Painel executivo'],['tarefas','Central de tarefas'],['expansao','Expansão e fornecedores'],['plano','Plano de 90 dias'],['lotes','Cadastro e pendências'],['vonder','Vonder 360'],['pops','Processos e POPs',1],['prod','Produtividade e qualidade'],['rel','Relatórios']];
+let S={view:'painel',src:'anuncios',tasks:[],loaded:0,state:'idle',err:'',filial:'',resp:'',st:'',q:'',mode:'lista',forn:[],dbOk:null,plano:[],inicio:'',pm:'lista',pfase:'',edit:null,vcfg:{},vhist:[],vper:'sem',lotes:[],lf:'',ls:'',ledit:null,rp:'30',qc:{}},db=null,unsub=null;
+
+function norm(t){const tg=(t.tags||[]).map(x=>String(x.name).toLowerCase());
+  const fil=tg.some(x=>x.startsWith('itaja'))?'Itajaí':tg.some(x=>x.startsWith('londrina'))?'Londrina':'Sem filial';
+  const done=!!t.date_closed||/conclu/i.test(t.status||'');
+  return{id:t.id,name:t.name,status:t.status||'—',url:t.url,pri:t.priority,resp:(t.assignees||[]).map(a=>a.username).filter(Boolean),tags:tg,fil,
+    due:t.due_date?+t.due_date:null,upd:+t.date_updated,closed:t.date_closed?+t.date_closed:null,done,list:t.list&&t.list.name}}
+
+// As tarefas vêm de data/clickup.json, gerado todo dia às 7h pela rotina de coleta (ROTINA.md).
+async function load(){
+  S.state='loading';render();
+  try{
+    const r=await fetch('data/clickup.json',{cache:'no-store'});
+    if(!r.ok){S.state='err';S.err=r.status===404?'sem_arquivo':'x';S.errMsg='HTTP '+r.status;return render()}
+    const f=(await r.json()).fontes?.[S.src];
+    if(!f){S.state='err';S.err='sem_fonte';return render()}
+    S.tasks=f.tarefas.map(norm);S.loaded=f.sincronizado_em;S.state='ok';
+  }catch(e){S.state='err';S.err='x';S.errMsg=e&&e.message}
+  render()}
+
+function metrics(ts){const n=Date.now(),op=ts.filter(t=>!t.done);
+  return{all:ts.length,done:ts.length-op.length,op,
+    late:op.filter(t=>t.due&&t.due<n),stale:op.filter(t=>n-t.upd>14*DAY),
+    wait:op.filter(t=>t.tags.includes('aguardando informações')),nodue:op.filter(t=>!t.due),
+    d30:ts.filter(t=>t.closed&&n-t.closed<30*DAY).length}}
+const filt=ts=>ts.filter(t=>(!S.filial||t.fil===S.filial)&&(!S.resp||t.resp.includes(S.resp))&&(!S.st||t.status===S.st)&&(!S.q||(t.name+' '+t.id).toLowerCase().includes(S.q.toLowerCase())));
+const fmt=ms=>ms?new Date(ms).toLocaleDateString('pt-BR'):'—';
+const pct=(a,b)=>b?Math.round(a/b*100)+'%':null;
+const card=(k,v,s)=>`<div class="card"><div class="k">${k}</div>${v==null?'<div class="v na">Sem dados suficientes</div>':`<div class="v">${v}</div>`}${s?`<div class="k">${s}</div>`:''}</div>`;
+const bars=(arr,mx)=>arr.map(([l,c])=>`<div class="row"><span class="t" title="${esc(l)}">${esc(l)}</span><span class="b"><i style="width:${mx?c/mx*100:0}%"></i></span><b>${c}</b></div>`).join('')||'<div class="k">Sem dados suficientes</div>';
+const count=(ts,f)=>{const m={};ts.forEach(t=>[].concat(f(t)).forEach(x=>m[x]=(m[x]||0)+1));return Object.entries(m).sort((a,b)=>b[1]-a[1])};
+const alink=t=>`<a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.name)}</a>`;
+
+function toolbar(withStatus){
+  const ts=S.tasks,fil=[...new Set(ts.map(t=>t.fil))],rs=[...new Set(ts.flatMap(t=>t.resp))].sort(),sts=[...new Set(ts.map(t=>t.status))];
+  const o=(a,v,l)=>`<option value="${esc(v)}" ${a===v?'selected':''}>${esc(l)}</option>`;
+  return`<div class="bar">
+  <select id="src" aria-label="Fonte">${Object.entries(SRC).map(([k,v])=>o(S.src,k,v[0])).join('')}</select>
+  <select id="fil" aria-label="Filial">${o(S.filial,'','Todas as filiais')}${fil.map(f=>o(S.filial,f,f)).join('')}</select>
+  <select id="resp" aria-label="Responsável">${o(S.resp,'','Todos os responsáveis')}${rs.map(f=>o(S.resp,f,f)).join('')}</select>
+  ${withStatus?`<select id="st" aria-label="Status">${o(S.st,'','Todos os status')}${sts.map(f=>o(S.st,f,f)).join('')}</select><input id="q" type="search" placeholder="Buscar por nome ou ID" value="${esc(S.q)}">`:''}
+  <button class="btn s" id="rf">Recarregar dados</button>
+  <span class="stamp">${S.loaded?'ClickUp lido em '+new Date(S.loaded).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})+' · atualiza todo dia às 7h':''}</span></div>`}
+
+function gate(){
+  if(S.state==='loading'||S.state==='idle')return`<div class="msg">Carregando tarefas do ClickUp…</div>`;
+  if(S.state==='err'){
+    const m={sem_arquivo:'Ainda não há dados do ClickUp. O arquivo é gerado pela rotina diária das 7h.',sem_fonte:'Esta fonte ainda não está no arquivo de dados. Ela entra na próxima coleta das 7h.'}[S.err]||'Não foi possível ler os dados do ClickUp ('+esc(S.errMsg||'erro desconhecido')+'). Se a página foi aberta direto do disco, abra pelo endereço do GitHub Pages.';
+    return`<div class="msg">${m}<br><br><button class="btn" id="rf2">Tentar de novo</button></div>`}
+  return''}
+
+function painel(){const g=gate();if(g)return g;
+  const ts=filt(S.tasks),m=metrics(ts),n=Date.now();
+  const byFil=count(ts,t=>t.fil),byStatus=count(m.op,t=>t.status),byResp=count(m.op,t=>t.resp.length?t.resp:['Sem responsável']).slice(0,8);
+  const alerts=[];
+  if(m.late.length)alerts.push(['r',`${m.late.length} tarefa(s) com prazo vencido`,m.late.slice(0,3)]);
+  if(m.wait.length)alerts.push(['',`${m.wait.length} aguardando informações`,m.wait.slice(0,3)]);
+  if(m.stale.length)alerts.push(['',`${m.stale.length} sem atualização há mais de 14 dias`,m.stale.slice(0,3)]);
+  return`${toolbar(false)}<div class="grid">
+  ${card('Tarefas no escopo',m.all)}${card('Em aberto',m.op.length)}${card('Concluídas',m.done,'últimos 30 dias: '+m.d30)}
+  ${card('Atrasadas',m.op.length-m.nodue.length?m.late.length:null,m.nodue.length+' em aberto sem prazo definido')}
+  ${card('Concluídas ÷ total',pct(m.done,m.all),'conclusão simples, sem peso')}</div>
+  <div class="two"><div class="card"><div class="h">Alertas</div>${alerts.map(([c,t,l])=>`<div class="al ${c}"><b>${t}</b><br>${l.map(alink).join(' · ')}</div>`).join('')||'<div class="k">Nenhum alerta com os dados atuais.</div>'}</div>
+  <div class="card"><div class="h">Em aberto por status</div>${bars(byStatus,byStatus[0]?.[1])}</div>
+  <div class="card"><div class="h">Carga por responsável</div>${bars(byResp,byResp[0]?.[1])}</div>
+  <div class="card"><div class="h">Por filial (tags do ClickUp)</div>${bars(byFil,byFil[0]?.[1])}<div class="k">A filial vem das tags “itajaí” e “londrina”. Tarefas sem tag ficam em “Sem filial”.</div></div></div>`}
+
+function tarefas(){const g=gate();if(g)return g;
+  const ts=filt(S.tasks).sort((a,b)=>b.upd-a.upd),n=Date.now();
+  const tog=`<div class="bar"><button class="btn ${S.mode==='lista'?'':'s'}" data-mode="lista">Lista</button><button class="btn ${S.mode==='kanban'?'':'s'}" data-mode="kanban">Kanban</button><span class="stamp">${ts.length} tarefa(s)</span></div>`;
+  const chips=t=>`${t.tags.map(x=>`<span class="chip g">${esc(x)}</span>`).join('')}`;
+  if(S.mode==='kanban'){const cols=count(ts,t=>t.status).map(c=>c[0]);
+    return toolbar(true)+tog+`<div class="kan">${cols.map(c=>{const l=ts.filter(t=>t.status===c).slice(0,40);return`<div class="col"><h3>${esc(c)} · ${ts.filter(t=>t.status===c).length}</h3>${l.map(t=>`<div class="tk">${alink(t)}<div class="m">${esc(t.resp.slice(0,3).join(', ')||'Sem responsável')}${t.resp.length>3?' +'+(t.resp.length-3):''}<br>${chips(t)}</div></div>`).join('')}</div>`}).join('')}</div>`}
+  return toolbar(true)+tog+`<div class="card tw"><table><thead><tr><th>Tarefa</th><th>Status</th><th>Responsáveis</th><th>Filial</th><th>Prazo</th><th>Parada há</th><th>Tags</th></tr></thead><tbody>${ts.slice(0,300).map(t=>{const late=!t.done&&t.due&&t.due<n;return`<tr><td>${alink(t)}<br><span class="stamp">${esc(t.id)}</span></td><td><span class="chip ${t.done?'g':''}">${esc(t.status)}</span></td><td>${esc(t.resp.join(', ')||'—')}</td><td>${t.fil}</td><td>${t.due?`<span class="chip ${late?'r':'g'}">${fmt(t.due)}</span>`:'<span class="stamp">sem prazo</span>'}</td><td>${t.done?'—':Math.floor((n-t.upd)/DAY)+' d'}</td><td>${chips(t)}</td></tr>`}).join('')}</tbody></table></div>`}
+
+const NUM=['total','validado','elegivel','priorizado','erp','publicado'];
+const LAB={total:'Informado',validado:'Validado',elegivel:'Elegível',priorizado:'Priorizado',erp:'No ERP',publicado:'Publicado'};
+function expansao(){
+  if(S.dbOk===false)return`<div class="msg">O armazenamento da página não está disponível para você. Peça acesso de edição ao dono do dashboard.</div>`;
+  const F=S.forn.filter(f=>!S.filial||f.filial===S.filial);
+  const covOf=f=>f.elegivel>0&&f.publicado!=null?Math.round(f.publicado/f.elegivel*100):null;
+  const sum=k=>F.reduce((a,f)=>a+(+f[k]||0),0);
+  const fun=NUM.map(k=>[LAB[k],sum(k)]);
+  return`<div class="bar"><select id="fil">${['','Itajaí','Londrina'].map(v=>`<option value="${v}" ${S.filial===v?'selected':''}>${v||'Todas as filiais'}</option>`).join('')}</select>
+  <input id="nf" class="n" placeholder="Novo fornecedor"><button class="btn" id="add">Adicionar</button>${S.forn.length?'':'<button class="btn s" id="seed">Carregar fornecedores iniciais</button>'}</div>
+  <div class="two"><div class="card"><div class="h">Funil do catálogo</div>${bars(fun,Math.max(...fun.map(x=>x[1]),0))}<div class="k">Cobertura = publicados ÷ elegíveis validados. Catálogo bruto não entra na conta.</div></div>
+  <div class="card"><div class="h">Como ler</div><div class="k">Preencha só o que foi confirmado. Campo vazio aparece como “Sem dados suficientes”, nunca como zero. Os 16.000 SKUs da Vonder são referência inicial a validar.</div></div></div>
+  <div class="card tw" style="margin-top:16px"><table><thead><tr><th>Fornecedor</th><th>Filial</th><th>Modelo</th>${NUM.map(k=>`<th>${LAB[k]}</th>`).join('')}<th>Cobertura</th></tr></thead><tbody>${F.map(f=>{const c=covOf(f);return`<tr><td><b>${esc(f.nome)}</b></td><td><select data-f="${f.id}" data-k="filial">${['Itajaí','Londrina'].map(v=>`<option ${f.filial===v?'selected':''}>${v}</option>`).join('')}</select></td><td><select data-f="${f.id}" data-k="modelo">${['A definir','Cross-docking','Dropshipping','Estoque próprio'].map(v=>`<option ${f.modelo===v?'selected':''}>${v}</option>`).join('')}</select></td>${NUM.map(k=>`<td><input type="number" min="0" data-f="${f.id}" data-k="${k}" value="${f[k]??''}"></td>`).join('')}<td>${c==null?'<span class="stamp">Sem dados suficientes</span>':`<b>${c}%</b><div class="row"><span class="b"><i style="width:${Math.min(c,100)}%"></i></span></div>`}</td></tr>`}).join('')||`<tr><td colspan="10" class="stamp">Nenhum fornecedor ainda. Adicione um ou carregue a lista inicial.</td></tr>`}</tbody></table></div>`}
+
+const ST=['Não iniciada','Planejada','Em andamento','Aguardando informações','Aguardando outro departamento','Bloqueada','Em revisão','Concluída','Cancelada'];
+const FASES=['Fase 1 · Diagnóstico e organização (dias 1–30)','Fase 2 · Padronização e implementação (dias 31–60)','Fase 3 · Consolidação e avaliação (dias 61–90)'];
+const SEEDP=[[0,'Mapear processos atuais'],[0,'Identificar gargalos'],[0,'Levantar pendências'],[0,'Definir responsáveis'],[0,'Organizar prioridades'],[0,'Criar linha de base dos indicadores'],[1,'Desenvolver POPs'],[1,'Implantar checklists'],[1,'Estruturar fluxo com Compras e centro de distribuição'],[1,'Criar controles operacionais'],[1,'Iniciar projetos prioritários de expansão'],[2,'Validar processos'],[2,'Acompanhar resultados'],[2,'Corrigir gargalos'],[2,'Analisar indicadores'],[2,'Apresentar resultados à diretoria']];
+const LBL={status:'Status',pct:'% conclusão',fim:'Prazo',resp:'Responsável',ini:'Início planejado'};
+const pd=s=>s?new Date(s+'T00:00:00').getTime():null,hoje=()=>new Date().toISOString().slice(0,10);
+const isOpen=x=>!['Concluída','Cancelada'].includes(x.status);
+const late=x=>isOpen(x)&&x.fim&&pd(x.fim)<pd(hoje());
+function pstats(L){const a=L.filter(x=>x.status!=='Cancelada'),w=a.reduce((s,x)=>s+(+x.peso||1),0),p=a.reduce((s,x)=>s+(x.status==='Concluída'?100:(+x.pct||0))*(+x.peso||1),0);
+  return{n:a.length,done:a.filter(x=>x.status==='Concluída').length,pw:w?Math.round(p/w):null}}
+function plano(){
+  if(S.dbOk===false)return`<div class="msg">O armazenamento da página não está disponível para você. Peça acesso de edição ao dono do dashboard.</div>`;
+  const all=[...S.plano].sort((a,b)=>a.fase-b.fase||String(a.codigo).localeCompare(String(b.codigo),'pt',{numeric:true}));
+  const L=S.pfase===''?all:all.filter(x=>x.fase===+S.pfase),st=pstats(L),bl=L.filter(x=>x.status==='Bloqueada'),lt=L.filter(late);
+  const dia=S.inicio?Math.floor((Date.now()-pd(S.inicio))/DAY)+1:null;
+  const o=(v,l,c)=>`<option value="${v}" ${String(c)===String(v)?'selected':''}>${esc(l)}</option>`;
+  const tog=['lista','kanban','cronograma'].map(m=>`<button class="btn ${S.pm===m?'':'s'}" data-pm="${m}">${m[0].toUpperCase()+m.slice(1)}</button>`).join('');
+  const head=`<div class="bar"><select id="pfase" aria-label="Fase">${o('','Todas as fases',S.pfase)}${FASES.map((f,i)=>o(i,f,S.pfase)).join('')}</select>
+  <label class="stamp">Início do plano <input id="pini" type="date" value="${esc(S.inicio)}"></label>
+  <button class="btn" id="pnew">Nova atividade</button>${all.length?'':'<button class="btn s" id="pseed">Carregar estrutura das 3 fases</button>'}</div><div class="bar">${tog}</div>`;
+  const cards=`<div class="grid">${card('Tarefas concluídas',pct(st.done,st.n),st.done+' de '+st.n+' · sem peso')}${card('Progresso ponderado',st.pw==null?null:st.pw+'%','soma(% × peso) ÷ soma dos pesos')}${card('Bloqueadas',L.length?bl.length:null)}${card('Atrasadas',L.some(x=>x.fim)?lt.length:null,L.filter(x=>isOpen(x)&&!x.fim).length+' sem prazo')}${card('Dia do plano',dia==null?null:dia<1?'—':dia>90?'90+':dia+' de 90',dia==null?'informe o início do plano':'')}</div>`;
+  const fb=`<div class="card" style="margin-bottom:16px"><div class="h">Progresso por fase</div>${FASES.map((f,i)=>{const s=pstats(all.filter(x=>x.fase===i));return`<div class="row"><span class="t" title="${esc(f)}">${esc(f.split(' · ')[0])}</span><span class="b"><i style="width:${s.pw||0}%"></i></span><b>${s.pw==null?'—':s.pw+'%'}</b></div>`}).join('')}</div>`;
+  let v='';
+  if(!L.length)v=`<div class="msg">Nenhuma atividade ainda. Crie uma ou carregue a estrutura das três fases.</div>`;
+  else if(S.pm==='kanban')v=`<div class="kan">${ST.map(s=>{const c=L.filter(x=>x.status===s);return`<div class="col"><h3>${s} · ${c.length}</h3>${c.map(x=>`<div class="tk" data-e="${x.id}" style="cursor:pointer"><b>${esc(x.codigo)}</b> ${esc(x.nome)}<div class="m">${esc(x.resp||'Sem responsável')} · ${x.status==='Concluída'?100:+x.pct||0}% · peso ${+x.peso||1}${late(x)?' <span class="chip r">atrasada</span>':''}</div></div>`).join('')}</div>`}).join('')}</div>`;
+  else if(S.pm==='cronograma'){const ds=L.flatMap(x=>[pd(x.ini),pd(x.fim)]).filter(Boolean);
+    let a=S.inicio?pd(S.inicio):Math.min(...ds),b=S.inicio?a+90*DAY:Math.max(...ds);
+    v=!ds.length?`<div class="msg">Sem dados suficientes: preencha início e prazo planejados para ver o cronograma.</div>`:`<div class="card tw">${L.map(x=>{const i=pd(x.ini)||pd(x.fim),f=pd(x.fim)||i,ok=i;const l=ok?Math.max(0,(i-a)/(b-a)*100):0,w=ok?Math.max(1.5,Math.min(100-l,(f-i)/(b-a)*100)):0;return`<div class="row" data-e="${x.id}" style="cursor:pointer"><span class="t" title="${esc(x.nome)}">${esc(x.codigo)} ${esc(x.nome)}</span><span class="gt" style="flex:1">${ok?`<i class="${x.status==='Concluída'?'f':''}" style="left:${l}%;width:${w}%"></i>`:''}</span></div>`}).join('')}<div class="stamp">Eixo: ${fmt(a)} a ${fmt(b)}${S.inicio?' (90 dias)':''}. Lime = concluída.</div></div>`}
+  else v=`<div class="card tw"><table><thead><tr><th>Código</th><th>Atividade</th><th>Fase</th><th>Responsável</th><th>Prazo</th><th>Status</th><th>%</th><th>Peso</th></tr></thead><tbody>${L.map(x=>`<tr data-e="${x.id}" style="cursor:pointer"><td>${esc(x.codigo)}</td><td><b>${esc(x.nome)}</b>${x.bloqueio?`<br><span class="stamp">Bloqueio: ${esc(x.bloqueio)}</span>`:''}</td><td>${x.fase+1}</td><td>${esc(x.resp||'—')}</td><td>${x.fim?`<span class="chip ${late(x)?'r':'g'}">${fmt(pd(x.fim))}</span>`:'<span class="stamp">sem prazo</span>'}</td><td><span class="chip ${x.status==='Concluída'?'g':''}">${x.status}</span></td><td>${x.status==='Concluída'?100:+x.pct||0}%</td><td>${+x.peso||1}</td></tr>`).join('')}</tbody></table></div>`;
+  return head+cards+fb+v}
+function openE(id){const x=id==='new'?{fase:S.pfase===''?0:+S.pfase,status:'Não iniciada',pct:0,peso:1,prio:'Normal'}:S.plano.find(p=>p.id===id);if(!x)return;S.edit=id;
+  let d=document.getElementById('dlg');if(!d){d=document.createElement('dialog');d.id='dlg';document.body.appendChild(d);d.addEventListener('close',()=>{S.edit=null})}
+  const I=(k,l,t='text',w='')=>`<label class="fl ${w}">${l}<input id="e_${k}" type="${t}" value="${esc(x[k]??'')}"></label>`;
+  const Sel=(k,l,a)=>`<label class="fl">${l}<select id="e_${k}">${a.map((v,i)=>`<option value="${k==='fase'?i:v}" ${String(x[k])===String(k==='fase'?i:v)?'selected':''}>${esc(v)}</option>`).join('')}</select></label>`;
+  d.innerHTML=`<div class="h">${id==='new'?'Nova atividade':esc(x.codigo)+' · editar'}</div><div class="fg">
+  ${I('codigo','Código único')}${I('nome','Nome da atividade','text','wide')}${Sel('fase','Fase',FASES)}${Sel('status','Status',ST)}${I('objetivo','Objetivo','text','wide')}${I('resp','Responsável principal')}${I('areas','Áreas envolvidas')}
+  ${I('ini','Início planejado','date')}${I('fim','Prazo final planejado','date')}${I('iniR','Início real','date')}${I('fimR','Conclusão real','date')}${Sel('prio','Prioridade',['Baixa','Normal','Alta','Urgente'])}${I('pct','% de conclusão','number')}${I('peso','Peso (estratégica = maior)','number')}
+  ${I('dep','Dependências','text','wide')}${I('evid','Evidência ou link','url','wide')}${I('bloqueio','Motivo do bloqueio','text','wide')}${I('proxResp','Próxima ação: quem')}${I('proxData','Acompanhar em','date')}${I('prox','Próxima ação','text','wide')}</div>
+  <div class="h" style="margin-top:16px">Histórico</div>${(x.hist||[]).slice().reverse().map(h=>`<div class="stamp">${new Date(h.ts).toLocaleString('pt-BR')} · ${esc(h.t)}</div>`).join('')||'<div class="stamp">Sem registros.</div>'}
+  <div class="bar" style="margin-top:16px"><button class="btn" id="psave">Salvar</button><button class="btn s" id="pcancel">Cancelar</button></div>`;d.showModal()}
+async function saveE(){if(!db)return;const g=k=>document.getElementById('e_'+k).value.trim(),o=S.plano.find(p=>p.id===S.edit)||{};
+  const n={...o,codigo:g('codigo')||('P'+(S.plano.length+1)),nome:g('nome'),fase:+g('fase'),status:g('status'),objetivo:g('objetivo'),resp:g('resp'),areas:g('areas'),ini:g('ini'),fim:g('fim'),iniR:g('iniR'),fimR:g('fimR'),prio:g('prio'),pct:Math.min(100,Math.max(0,+g('pct')||0)),peso:+g('peso')>0?+g('peso'):1,dep:g('dep'),evid:g('evid'),bloqueio:g('bloqueio'),proxResp:g('proxResp'),proxData:g('proxData'),prox:g('prox')};
+  if(!n.nome)return alert('Dê um nome à atividade.');
+  if(n.status==='Bloqueada'&&!(n.bloqueio&&n.proxResp&&n.proxData))return alert('Bloqueio exige o motivo, quem age em seguida e a data de acompanhamento.');
+  if(n.status==='Concluída'){n.pct=100;n.fimR=n.fimR||hoje()}
+  const ch=o.nome?['status','pct','fim','resp','ini'].filter(k=>String(o[k]??'')!==String(n[k]??'')).map(k=>`${LBL[k]}: ${o[k]||'—'} → ${n[k]||'—'}`):[];
+  if(!o.nome||ch.length)n.hist=[...(o.hist||[]),{ts:Date.now(),t:o.nome?ch.join('; '):'Atividade criada'}];
+  const {id,...body}=n;const ref=db.collection('plano').doc(S.edit==='new'?undefined:S.edit);
+  try{await ref.set(body);document.getElementById('dlg').close()}catch(e){alert('Não foi possível salvar. Confira sua permissão de edição.')}}
+document.addEventListener('click',e=>{const t=e.target,r=t.closest('[data-e]');
+  if(t.dataset.pm){S.pm=t.dataset.pm;render()}
+  else if(t.id==='pnew')openE('new');
+  else if(t.id==='psave')saveE();
+  else if(t.id==='pcancel')document.getElementById('dlg').close();
+  else if(t.id==='pseed'&&db){const c={};SEEDP.forEach(([f,n])=>{c[f]=(c[f]||0)+1;db.collection('plano').doc().set({codigo:`F${f+1}-${String(c[f]).padStart(2,'0')}`,nome:n,fase:f,status:'Não iniciada',pct:0,peso:1,prio:'Normal',hist:[{ts:Date.now(),t:'Atividade criada'}]}).catch(()=>{})})}
+  else if(r&&!t.closest('a'))openE(r.dataset.e)});
+document.addEventListener('change',e=>{const t=e.target;
+  if(t.id==='pfase'){S.pfase=t.value;render()}
+  else if(t.id==='pini'&&db){db.doc('config/plano').set({inicio:t.value}).catch(()=>{})}});
+const VF=['total','validado','elegivel','priorizado','erp','publicado'];
+const vf=()=>S.forn.find(f=>f.nome==='Vonder'),nf=x=>x==null?null:Number(x).toLocaleString('pt-BR');
+const wkey=(d,m)=>{if(m==='mes')return d.slice(0,7);const t=new Date(d+'T00:00:00'),j=new Date(t);j.setDate(t.getDate()+3-((t.getDay()+6)%7));const y=new Date(j.getFullYear(),0,4);return j.getFullYear()+'-S'+String(1+Math.round(((j-y)/DAY-3+((y.getDay()+6)%7))/7)).padStart(2,'0')};
+function vonder(){
+  if(S.dbOk===false)return`<div class="msg">O armazenamento da página não está disponível para você. Peça acesso de edição ao dono do dashboard.</div>`;
+  const f=vf();
+  if(!f)return`<div class="msg">A Vonder ainda não está cadastrada. Os números daqui vêm da ficha do fornecedor, para você não digitar duas vezes.<br><br><button class="btn" data-v="expansao">Ir para fornecedores</button></div>`;
+  const c=S.vcfg||{},rest=f.elegivel!=null&&f.publicado!=null?Math.max(0,f.elegivel-f.publicado):null,cov=f.elegivel>0&&f.publicado!=null?Math.round(f.publicado/f.elegivel*1000)/10:null;
+  const H=[...S.vhist].sort((a,b)=>a.id.localeCompare(b.id)),G={};H.forEach(h=>G[wkey(h.id,S.vper)]=h);
+  const keys=Object.keys(G).sort();
+  let pace=null,proj=null;
+  if(H.length>1){const a=H[0],b=H[H.length-1],d=(pd(b.id)-pd(a.id))/DAY;if(d>=7&&a.publicado!=null&&b.publicado!=null){pace=(b.publicado-a.publicado)/d*7;if(pace>0&&rest!=null)proj=new Date(Date.now()+rest/pace*7*DAY)}}
+  const meta=c.meta>0&&f.publicado!=null?Math.round(f.publicado/c.meta*100):null;
+  const vt=S.tasks.filter(t=>/vonder/i.test(t.name)),vo=vt.filter(t=>!t.done);
+  const lst=(a,k)=>(a||[]).map((x,i)=>`<div class="row"><span class="t" style="flex:1">${esc(x.nome)}</span><b>${nf(x.qtd)}</b><button class="btn s" data-vdel="${k}:${i}" aria-label="Remover">×</button></div>`).join('')||'<div class="k">Nada registrado.</div>';
+  const add=k=>`<div class="bar"><input id="v${k}_n" class="n" placeholder="${k==='p'?'Motivo':'Critério'}" style="width:170px"><input id="v${k}_q" type="number" min="0" placeholder="Qtd" style="width:90px"><button class="btn s" data-vadd="${k}">Adicionar</button></div>`;
+  const pend=(c.pend||[]).reduce((s,x)=>s+(+x.qtd||0),0);
+  return`<div class="grid">${card('Catálogo informado',nf(f.total),'referência inicial, a validar')}${card('Validado e elegível',nf(f.elegivel),'validado: '+(nf(f.validado)??'sem dados'))}${card('Priorizado',nf(f.priorizado))}${card('No ERP',nf(f.erp))}${card('Publicado',nf(f.publicado))}${card('Restante',nf(rest),'elegíveis ainda não publicados')}${card('Cobertura',cov==null?null:String(cov).replace('.',',')+'%','publicados ÷ elegíveis validados')}${card('Bloqueados e pendentes',c.pend?.length?nf(pend):null,'soma dos motivos registrados')}</div>
+  <div class="two"><div class="card"><div class="h">Funil da Vonder</div>${bars(VF.map(k=>[LAB[k],+f[k]||0]),Math.max(...VF.map(k=>+f[k]||0),0))}
+  <div class="k">Sobre o catálogo bruto (só referência): ${f.total>0&&f.erp!=null?Math.round(f.erp/f.total*1000)/10+'% trabalhado':'Sem dados suficientes'}.</div></div>
+  <div class="card"><div class="h">Atualizar números</div><div class="tw"><table><tr>${VF.map(k=>`<th>${LAB[k]}</th>`).join('')}</tr><tr>${VF.map(k=>`<td><input type="number" min="0" data-f="${f.id}" data-k="${k}" value="${f[k]??''}"></td>`).join('')}</tr></table></div>
+  <div class="k">Os mesmos números da ficha em Expansão. Ao mudar, registre a posição para formar a série semanal e mensal.</div><div class="bar" style="margin-top:12px"><button class="btn" data-vsnap="1">Registrar posição de hoje</button></div></div></div>
+  <div class="two" style="margin-top:16px"><div class="card"><div class="h">Evolução</div><div class="bar"><button class="btn ${S.vper==='sem'?'':'s'}" data-vper="sem">Semanal</button><button class="btn ${S.vper==='mes'?'':'s'}" data-vper="mes">Mensal</button></div>
+  ${keys.length?`<div class="tw"><table><thead><tr><th>Período</th><th>Publicados</th><th>Variação</th><th>No ERP</th></tr></thead><tbody>${keys.map((k,i)=>{const h=G[k],p=i?G[keys[i-1]]:null,d=p&&h.publicado!=null&&p.publicado!=null?h.publicado-p.publicado:null;return`<tr><td>${k}</td><td>${nf(h.publicado)??'—'}</td><td>${d==null?'—':(d>0?'+':'')+nf(d)}</td><td>${nf(h.erp)??'—'}</td></tr>`}).join('')}</tbody></table></div>`:'<div class="k">Sem dados suficientes. Registre a primeira posição.</div>'}</div>
+  <div class="card"><div class="h">Projeção e meta</div>
+  ${card('Ritmo real',pace==null?null:nf(Math.round(pace))+' SKUs por semana','entre a primeira e a última posição')}<div style="height:10px"></div>${card('Conclusão projetada',proj?proj.toLocaleDateString('pt-BR'):null,'restante ÷ ritmo real; exige 7+ dias de série')}
+  <div class="bar" style="margin-top:12px"><label class="stamp">Meta de publicados <input id="vmeta" type="number" min="0" value="${c.meta??''}" style="width:110px"></label><label class="stamp">até <input id="vmetad" type="date" value="${esc(c.metaData||'')}"></label></div>
+  <div class="k">${c.meta>0?(meta==null?'Sem dados suficientes':'Realizado: '+meta+'% da meta'+(c.metaData?' até '+fmt(pd(c.metaData)):'')):'Sem meta aprovada pela gestão. Preencha só depois da decisão.'}</div></div></div>
+  <div class="two" style="margin-top:16px"><div class="card"><div class="h">Pendências por motivo</div>${lst(c.pend,'pend')}${add('p')}</div><div class="card"><div class="h">Priorizados por critério</div>${lst(c.crit,'crit')}${add('c')}<div class="k">Critérios definidos pela empresa: margem, disponibilidade, relevância comercial.</div></div></div>
+  <div class="card" style="margin-top:16px"><div class="h">Tarefas Vonder no ClickUp</div>${S.state!=='ok'?'<div class="k">Abra o Painel executivo para carregar as tarefas.</div>':`<div class="k">${vo.length} em aberto · ${vt.length-vo.length} concluídas, na fonte “${esc(SRC[S.src][0])}”.</div>${vo.slice(0,8).map(t=>`<div class="al">${alink(t)} <span class="chip g">${esc(t.status)}</span> ${esc(t.resp.slice(0,2).join(', '))}</div>`).join('')}`}</div>`}
+const vset=o=>db&&db.doc('config/vonder').set({...S.vcfg,...o}).catch(()=>{});
+document.addEventListener('click',e=>{const t=e.target,d=t.dataset;
+  if(d.vper){S.vper=d.vper;render()}
+  else if(d.vsnap&&db){const f=vf();if(f){const o={ts:Date.now()};VF.forEach(k=>o[k]=f[k]??null);db.collection('vonder_hist').doc(hoje()).set(o).catch(()=>{})}}
+  else if(d.vadd){const k=d.vadd,n=document.getElementById('v'+k+'_n').value.trim(),q=+document.getElementById('v'+k+'_q').value;if(n&&q>=0){const key=k==='p'?'pend':'crit';vset({[key]:[...(S.vcfg[key]||[]),{nome:n,qtd:q}]})}}
+  else if(d.vdel){const[key,i]=d.vdel.split(':');vset({[key]:(S.vcfg[key]||[]).filter((_,j)=>j!==+i)})}});
+document.addEventListener('change',e=>{const t=e.target;if(t.id==='vmeta')vset({meta:+t.value||null});else if(t.id==='vmetad')vset({metaData:t.value})});
+const CHK=[['sku','SKU ou código de referência'],['ean','EAN'],['desc','Descrição'],['marca','Marca'],['custo','Custo'],['ncm','NCM e dados fiscais'],['dim','Dimensões'],['peso','Peso'],['img','Imagens'],['tec','Informações técnicas'],['com','Dados comerciais'],['log','Modelo de operação logística'],['disp','Disponibilidade e autorização comercial'],['corresp','Correspondência planilha × produto físico']];
+const CST=['Pendente','Conforme','Não aplicável','Divergente'],CONF=['Pendente','Aprovada','Devolvida'],EXE=['Não iniciada','Em cadastro','Concluída'],TIPOS=['Simples','Kit','Variações'];
+const OBR={Simples:['sku','desc','marca','custo','ncm','dim','peso','img','corresp'],Kit:['sku','desc','custo','ncm','dim','peso','img'],Variações:['sku','desc','marca','custo','ncm','dim','peso','img','tec']};
+const dd=(a,b)=>a&&b?(pd(b)-pd(a))/DAY:null,avg=a=>{a=a.filter(x=>x!=null&&x>=0);return a.length?a.reduce((s,x)=>s+x,0)/a.length:null},d1=x=>x==null?null:(Math.round(x*10)/10).toLocaleString('pt-BR')+' d';
+function owners(l){const h=l.hist||[];if(!l.dtFila)return null;let c=0,x=0;h.forEach((e,i)=>{if(e.ts<pd(l.dtFila))return;const end=i<h.length-1?h[i+1].ts:(l.exec==='Concluída'?e.ts:Date.now()),d=Math.max(0,end-Math.max(e.ts,pd(l.dtFila)))/DAY;if(e.conf==='Devolvida')x+=d;else c+=d});return{c,x}}
+function lotes(){
+  if(S.dbOk===false)return`<div class="msg">O armazenamento da página não está disponível para você. Peça acesso de edição ao dono do dashboard.</div>`;
+  const forn=[...new Set(S.lotes.map(l=>l.fornecedor).filter(Boolean))].sort();
+  const L=S.lotes.filter(l=>(!S.lf||l.fornecedor===S.lf)&&(!S.ls||l.conf===S.ls||l.exec===S.ls)).sort((a,b)=>String(a.codigo).localeCompare(String(b.codigo),'pt',{numeric:true}));
+  const an=L.filter(l=>l.primeira),dev=an.filter(l=>l.primeira==='devolvida').length,ow=L.map(owners).filter(Boolean);
+  const sum=(a,k)=>a.reduce((s,l)=>s+(+l[k]||0),0),bloq=L.filter(l=>l.conf==='Devolvida'&&!l.dtRetorno);
+  const dv=L.filter(l=>(l.ck||{}).corresp==='Divergente'||(l.prevQtd!=null&&l.recebQtd!=null&&l.prevQtd!==l.recebQtd)).length;
+  const grp=(f)=>{const m={};L.forEach(l=>{const k=f(l);if(k)m[k]=(m[k]||0)+(+l.pendentes||0)});return Object.entries(m).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1])};
+  const mot=count(L.filter(l=>l.motivo),l=>l.motivo);
+  const o=(a,v,l)=>`<option value="${esc(v)}" ${a===v?'selected':''}>${esc(l)}</option>`;
+  return`<div class="bar"><select id="lf" aria-label="Fornecedor">${o(S.lf,'','Todos os fornecedores')}${forn.map(f=>o(S.lf,f,f)).join('')}</select><select id="ls" aria-label="Status">${o(S.ls,'','Todos os status')}${[...CONF,...EXE].map(f=>o(S.ls,f,f)).join('')}</select><button class="btn" id="lnew">Novo lote</button></div>
+  <div class="grid">${card('Lotes no escopo',L.length||null)}${card('Taxa de devolução',pct(dev,an.length),dev+' de '+an.length+' analisados')}${card('Aprovação na 1ª conferência',pct(an.length-dev,an.length))}${card('Espera por informações',d1(avg(L.map(l=>dd(l.dtDev,l.dtRetorno)))),'devolução → retorno')}${card('Recebimento → início',d1(avg(L.map(l=>dd(l.dtPlanilha,l.dtInicio)))))}${card('Execução do cadastro',d1(avg(L.map(l=>dd(l.dtInicio,l.dtConclusao)))))}${card('Sob Cadastro & Criativo',ow.length?d1(avg(ow.map(x=>x.c))):null,'média por lote, a partir da entrada na fila')}${card('Aguardando externos',ow.length?d1(avg(ow.map(x=>x.x))):null,'Compras, fornecedor, CD')}${card('Produtos bloqueados',L.length?sum(bloq,'pendentes'):null,'lotes devolvidos sem retorno')}${card('Retrabalho (devolvidos)',L.length?sum(L,'devolvidos'):null)}${card('Divergências físico × planilha',L.length?dv:null,'lotes')}</div>
+  <div class="two"><div class="card"><div class="h">Pendências por fornecedor</div>${bars(grp(l=>l.fornecedor),(grp(l=>l.fornecedor)[0]||[])[1])}</div><div class="card"><div class="h">Pendências por departamento</div>${bars(grp(l=>l.deptoCorr),(grp(l=>l.deptoCorr)[0]||[])[1])}</div><div class="card"><div class="h">Motivos de devolução</div>${bars(mot,(mot[0]||[])[1])}</div></div>
+  <div class="card tw" style="margin-top:16px">${L.length?`<table><thead><tr><th>Lote</th><th>Fornecedor</th><th>Prev. / receb.</th><th>Conferência</th><th>Execução</th><th>Cadastrados</th><th>Pendentes</th><th>Devolvidos</th><th>Quem corrige</th></tr></thead><tbody>${L.map(l=>`<tr data-l="${l.id}" style="cursor:pointer"><td>${esc(l.codigo)}</td><td><b>${esc(l.fornecedor||'—')}</b></td><td>${l.prevQtd??'—'} / ${l.recebQtd??'—'}</td><td><span class="chip ${l.conf==='Devolvida'?'r':l.conf==='Aprovada'?'g':''}">${l.conf}</span></td><td>${l.exec}</td><td>${l.cadastrados??'—'}</td><td>${l.pendentes??'—'}</td><td>${l.devolvidos??'—'}</td><td>${esc(l.deptoCorr||'—')}</td></tr>`).join('')}</tbody></table>`:'<div class="msg">Nenhum lote ainda. Registre o primeiro quando chegar a próxima planilha.</div>'}</div>`}
+function openL(id){const x=id==='new'?{conf:'Pendente',exec:'Não iniciada',tipo:'Simples',ck:{},dtPlanilha:hoje()}:S.lotes.find(p=>p.id===id);if(!x)return;S.ledit=id;
+  let d=document.getElementById('dlg');if(!d){d=document.createElement('dialog');d.id='dlg';document.body.appendChild(d);d.addEventListener('close',()=>{S.edit=null;S.ledit=null})}
+  const I=(k,l,t='text',w='')=>`<label class="fl ${w}">${l}<input id="l_${k}" type="${t}" ${k==='fornecedor'?'list="fl"':''} value="${esc(x[k]??'')}"></label>`;
+  const Sel=(k,l,a)=>`<label class="fl">${l}<select id="l_${k}">${a.map(v=>`<option ${x[k]===v?'selected':''}>${v}</option>`).join('')}</select></label>`;
+  d.innerHTML=`<div class="h">${id==='new'?'Novo lote':esc(x.codigo)}</div><datalist id="fl">${S.forn.map(f=>`<option value="${esc(f.nome)}">`).join('')}</datalist><div class="fg">
+  ${I('fornecedor','Fornecedor')}${I('origem','Origem da demanda')}${Sel('tipo','Tipo de produto',TIPOS)}${I('resp','Responsável pelo cadastro')}${I('prevQtd','Produtos previstos','number')}${I('recebQtd','Produtos recebidos','number')}
+  ${I('dtPlanilha','Recebimento da planilha','date')}${I('dtFisico','Recebimento físico','date')}${I('dtFila','Entrada na fila do Cadastro','date')}${Sel('conf','Status da conferência',CONF)}${Sel('exec','Status da execução',EXE)}
+  ${I('cadastrados','Cadastrados','number')}${I('pendentes','Pendentes','number')}${I('devolvidos','Devolvidos','number')}${I('motivo','Motivo da devolução','text','wide')}${I('dtDev','Data da devolução','date')}${I('deptoCorr','Departamento que corrige')}${I('dtRetorno','Retorno das informações','date')}${I('dtConclusao','Conclusão','date')}${I('obs','Observações ou evidência (link)','text','wide')}</div>
+  <div class="h" style="margin:16px 0 4px">Checklist de validação</div><div class="k" style="margin-bottom:8px">Obrigatórios para ${x.tipo||'Simples'}: marcados com *. Aprovar exige Conforme ou Não aplicável neles.</div><div class="fg">${CHK.map(([k,l])=>`<label class="fl">${l}${(OBR[x.tipo||'Simples']||[]).includes(k)?' *':''}<select id="c_${k}">${CST.map(v=>`<option ${((x.ck||{})[k]||'Pendente')===v?'selected':''}>${v}</option>`).join('')}</select></label>`).join('')}${I('excecao','Exceção justificada (libera aprovação com obrigatório pendente)','text','wide')}</div>
+  <div class="h" style="margin:16px 0 4px">Histórico</div>${(x.hist||[]).slice().reverse().map(h=>`<div class="stamp">${new Date(h.ts).toLocaleString('pt-BR')} · ${esc(h.t)}</div>`).join('')||'<div class="stamp">Sem registros.</div>'}
+  <div class="bar" style="margin-top:16px"><button class="btn" id="lsave">Salvar</button><button class="btn s" id="lcancel">Cancelar</button></div>`;d.showModal()}
+async function saveL(){if(!db)return;const g=k=>document.getElementById('l_'+k).value.trim(),n_=k=>g(k)===''?null:+g(k),o=S.lotes.find(p=>p.id===S.ledit)||{};
+  const ck={};CHK.forEach(([k])=>ck[k]=document.getElementById('c_'+k).value);
+  const n={...o,codigo:o.codigo||('L-'+String(S.lotes.length+1).padStart(3,'0')),fornecedor:g('fornecedor'),origem:g('origem'),tipo:g('tipo'),resp:g('resp'),prevQtd:n_('prevQtd'),recebQtd:n_('recebQtd'),dtPlanilha:g('dtPlanilha'),dtFisico:g('dtFisico'),dtFila:g('dtFila'),conf:g('conf'),exec:g('exec'),cadastrados:n_('cadastrados'),pendentes:n_('pendentes'),devolvidos:n_('devolvidos'),motivo:g('motivo'),dtDev:g('dtDev'),deptoCorr:g('deptoCorr'),dtRetorno:g('dtRetorno'),dtConclusao:g('dtConclusao'),obs:g('obs'),excecao:g('excecao'),ck};
+  if(!n.fornecedor)return alert('Informe o fornecedor.');
+  if(n.conf==='Aprovada'){const f=OBR[n.tipo].filter(k=>!['Conforme','Não aplicável'].includes(ck[k]));if(f.length&&!n.excecao)return alert('Itens obrigatórios sem conformidade: '+f.map(k=>CHK.find(c=>c[0]===k)[1]).join(', ')+'. Corrija ou registre uma exceção justificada.')}
+  if(n.exec==='Concluída'&&n.conf!=='Aprovada')return alert('Só dá para concluir um lote aprovado na conferência.');
+  if(n.conf==='Devolvida'){if(!(n.motivo&&n.deptoCorr))return alert('Devolução exige o motivo e o departamento que corrige.');n.dtDev=n.dtDev||hoje()}
+  if(!o.primeira&&n.conf!=='Pendente')n.primeira=n.conf==='Aprovada'?'aprovada':'devolvida';
+  if(o.conf!=='Devolvida'&&n.conf==='Devolvida')n.nDev=(o.nDev||0)+1;
+  if(o.conf==='Devolvida'&&n.conf!=='Devolvida'&&!n.dtRetorno)n.dtRetorno=hoje();
+  if(n.exec==='Em cadastro'&&!n.dtInicio)n.dtInicio=hoje();
+  if(n.exec==='Concluída'&&!n.dtConclusao)n.dtConclusao=hoje();
+  if(!o.fornecedor||o.conf!==n.conf||o.exec!==n.exec)n.hist=[...(o.hist||[]),{ts:Date.now(),conf:n.conf,exec:n.exec,t:o.fornecedor?`Conferência: ${o.conf} → ${n.conf}; execução: ${o.exec} → ${n.exec}${n.conf==='Aprovada'&&n.excecao?' (exceção: '+n.excecao+')':''}`:'Lote criado'}];
+  const {id,...body}=n;try{await db.collection('lotes').doc(S.ledit==='new'?undefined:S.ledit).set(body);document.getElementById('dlg').close()}catch(e){alert('Não foi possível salvar. Confira sua permissão de edição.')}}
+document.addEventListener('click',e=>{const t=e.target,r=t.closest('[data-l]');
+  if(t.id==='lnew')openL('new');else if(t.id==='lsave')saveL();else if(t.id==='lcancel')document.getElementById('dlg').close();else if(r)openL(r.dataset.l)});
+document.addEventListener('change',e=>{const t=e.target;if(t.id==='lf'){S.lf=t.value;render()}else if(t.id==='ls'){S.ls=t.value;render()}});
+const cut=()=>S.rp==='all'?0:Date.now()-(+S.rp)*DAY,iso=ms=>new Date(ms).toISOString().slice(0,10);
+const perSel=()=>`<select id="rp" aria-label="Período">${[['7','7 dias'],['30','30 dias'],['90','90 dias'],['365','12 meses'],['all','Todo o histórico']].map(([v,l])=>`<option value="${v}" ${S.rp===v?'selected':''}>${l}</option>`).join('')}</select>`;
+const PES=k=>+((S.qc.pesos||{})[k])>0?+S.qc.pesos[k]:1;
+const meta=(m,real,max)=>m==null||m===''?'<span class="stamp">Sem meta definida</span>':real==null?'<span class="stamp">Sem dados suficientes</span>':`<span class="chip ${(max?real<=+m:real>=+m)?'g':'r'}">${(max?real<=+m:real>=+m)?'dentro':'fora'} da meta de ${m}%</span>`;
+function prodData(){const c=cut(),ts=filt(S.tasks),done=ts.filter(t=>t.closed&&t.closed>=c),dp=done.filter(t=>t.due),okp=dp.filter(t=>t.closed<=t.due+DAY-1);
+  const LC=S.lotes.filter(l=>l.exec==='Concluída'&&l.dtConclusao&&pd(l.dtConclusao)>=c),LA=S.lotes.filter(l=>l.primeira&&pd(l.dtPlanilha||hoje())>=c);
+  return{done,dp,okp,LC,LA,prazo:dp.length?Math.round(okp.length/dp.length*100):null,retr:LC.length?Math.round(LC.filter(l=>l.nDev>0).length/LC.length*100):null,dev:LA.length?Math.round(LA.filter(l=>l.primeira==='devolvida').length/LA.length*100):null}}
+function prod(){
+  if(S.dbOk===false)return`<div class="msg">O armazenamento da página não está disponível para você.</div>`;
+  const P=prodData(),m=metrics(filt(S.tasks)),qc=S.qc;
+  const cad=P.LC.reduce((s,l)=>s+(+l.cadastrados||0),0),kits=P.LC.filter(l=>l.tipo==='Kit').reduce((s,l)=>s+(+l.cadastrados||0),0),pond=P.LC.reduce((s,l)=>s+(+l.cadastrados||0)*PES(l.tipo),0);
+  const wk=(arr,f,v)=>{const o={};arr.forEach(x=>{const k=wkey(f(x),'sem');o[k]=(o[k]||0)+v(x)});return Object.entries(o).sort().slice(-8)};
+  const wt=wk(P.done,t=>iso(t.closed),()=>1),wl=wk(P.LC,l=>l.dtConclusao,l=>+l.cadastrados||0);
+  const pp=count(P.done,t=>t.resp.length?t.resp:['Sem responsável']).slice(0,8),op=count(m.op,t=>t.resp.length?t.resp:['Sem responsável']).slice(0,8);
+  const lp={};P.LC.forEach(l=>{const k=l.resp||'Sem responsável';lp[k]=(lp[k]||0)+(+l.cadastrados||0)});const lpa=Object.entries(lp).sort((a,b)=>b[1]-a[1]);
+  const mi=(k,l)=>`<label class="stamp">${l} <input type="number" min="0" max="100" data-q="${k}" value="${qc[k]??''}" style="width:80px"></label>`;
+  return`<div class="bar">${perSel()}<select id="fil">${['','Itajaí','Londrina','Sem filial'].map(v=>`<option value="${v}" ${S.filial===v?'selected':''}>${v||'Todas as filiais'}</option>`).join('')}</select><span class="stamp">Tarefas vêm do ClickUp (${esc(SRC[S.src][0])}); lotes vêm de Cadastro e pendências.</span></div>
+  <div class="eye" style="margin:8px 0">Produtividade</div><div class="grid">${card('Tarefas concluídas',S.state==='ok'?P.done.length:null,'no período')}${card('Produtos cadastrados',P.LC.length?cad:null,'lotes concluídos')}${card('Kits cadastrados',P.LC.length?kits:null)}${card('Pontuação ponderada',P.LC.length?pond:null,'produtos × peso por tipo')}${card('Em aberto',S.state==='ok'?m.op.length:null)}</div>
+  <div class="eye" style="margin:8px 0">Prazo</div><div class="grid">${card('Cumprimento de prazo',P.prazo==null?null:P.prazo+'%',P.dp.length+' concluídas com prazo no período')}</div>
+  <div class="eye" style="margin:8px 0">Qualidade</div><div class="grid">${card('Taxa de retrabalho',P.retr==null?null:P.retr+'%','lotes concluídos que foram devolvidos ao menos uma vez')}${card('Devolução na 1ª conferência',P.dev==null?null:P.dev+'%',P.LA.length+' lotes analisados')}</div>
+  <div class="card" style="margin-bottom:16px"><div class="h">Metas (só preencha o que a gestão aprovou)</div><div class="bar">${mi('metaPrazo','Cumprimento de prazo ≥ %')}${mi('metaRetrab','Retrabalho ≤ %')}${mi('metaDev','Devolução ≤ %')}</div>
+  <div class="row"><span class="t" style="flex:1">Prazo</span>${meta(qc.metaPrazo,P.prazo,0)}</div><div class="row"><span class="t" style="flex:1">Retrabalho</span>${meta(qc.metaRetrab,P.retr,1)}</div><div class="row"><span class="t" style="flex:1">Devolução</span>${meta(qc.metaDev,P.dev,1)}</div>
+  <div class="bar" style="margin-top:8px">${['Simples','Kit','Variações'].map(k=>`<label class="stamp">Peso ${k} <input type="number" min="0" step="0.1" data-qp="${k}" value="${(qc.pesos||{})[k]??''}" placeholder="1" style="width:80px"></label>`).join('')}</div><div class="k">Pesos refletem a complexidade de cada tipo de cadastro. Sem pesos, tudo vale 1. Defina depois de medir uma linha de base real.</div></div>
+  <div class="two"><div class="card"><div class="h">Tarefas concluídas por semana</div>${bars(wt,Math.max(...wt.map(x=>x[1]),0))}</div><div class="card"><div class="h">Produtos cadastrados por semana</div>${bars(wl,Math.max(...wl.map(x=>x[1]),0))}</div>
+  <div class="card"><div class="h">Concluídas por pessoa</div>${bars(pp,(pp[0]||[])[1])}<div class="k">Tarefa com vários responsáveis conta para cada um.</div></div><div class="card"><div class="h">Carga em aberto por pessoa</div>${bars(op,(op[0]||[])[1])}</div>
+  <div class="card"><div class="h">Produtos cadastrados por pessoa</div>${bars(lpa,(lpa[0]||[])[1])}</div></div>`}
+const csv=r=>'\ufeff'+r.map(a=>a.map(c=>{c=c==null?'':String(c);return/[;"\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(';')).join('\n');
+async function dl(n,r){try{const d=await claude.use('downloads');if(!d)return alert('O download não está disponível nesta visualização.');await d.save({filename:n+'-'+hoje()+'.csv',data:csv(r)})}catch(e){}}
+const EXP={tarefas:()=>[['ID','Tarefa','Status','Responsáveis','Filial','Prazo','Atualizada','Concluída']].concat(filt(S.tasks).map(t=>[t.id,t.name,t.status,t.resp.join(', '),t.fil,t.due?iso(t.due):'',iso(t.upd),t.closed?iso(t.closed):''])),
+  lotes:()=>[['Lote','Fornecedor','Tipo','Previstos','Recebidos','Conferência','Execução','Cadastrados','Pendentes','Devolvidos','Motivo','Departamento','Planilha','Início','Conclusão']].concat(S.lotes.map(l=>[l.codigo,l.fornecedor,l.tipo,l.prevQtd,l.recebQtd,l.conf,l.exec,l.cadastrados,l.pendentes,l.devolvidos,l.motivo,l.deptoCorr,l.dtPlanilha,l.dtInicio,l.dtConclusao])),
+  plano:()=>[['Código','Atividade','Fase','Responsável','Início','Prazo','Conclusão real','Status','%','Peso','Bloqueio']].concat(S.plano.map(x=>[x.codigo,x.nome,x.fase+1,x.resp,x.ini,x.fim,x.fimR,x.status,x.status==='Concluída'?100:x.pct,x.peso,x.bloqueio])),
+  fornecedores:()=>[['Fornecedor','Filial','Modelo',...NUM.map(k=>LAB[k]),'Cobertura %']].concat(S.forn.map(f=>[f.nome,f.filial,f.modelo,...NUM.map(k=>f[k]),f.elegivel>0&&f.publicado!=null?Math.round(f.publicado/f.elegivel*100):'']))};
+function rel(){
+  const P=prodData(),ps=pstats(S.plano),pl=S.plano.filter(late),pb=S.plano.filter(x=>x.status==='Bloqueada'),qc=S.qc;
+  const cc=S.plano.filter(x=>x.status==='Concluída'&&x.fim&&x.fimR),noPrazo=cc.filter(x=>x.fimR<=x.fim).length;
+  const m=metrics(S.tasks),mot=count([...S.lotes.filter(l=>l.motivo).map(l=>({k:l.motivo})),...pb.map(x=>({k:'Plano: '+x.bloqueio}))],x=>x.k).slice(0,6);
+  const dep={};S.lotes.forEach(l=>{if(l.deptoCorr&&+l.pendentes>0)dep[l.deptoCorr]=(dep[l.deptoCorr]||0)+(+l.pendentes)});const de=Object.entries(dep).sort((a,b)=>b[1]-a[1]);
+  const V=S.forn.find(f=>f.nome==='Vonder'),H=[...S.vhist].sort((a,b)=>a.id.localeCompare(b.id)),last=H[H.length-1],prev=H[H.length-2];
+  const risk=[];
+  if(S.state==='ok'&&m.late.length)risk.push(['r',m.late.length+' tarefa(s) do ClickUp com prazo vencido']);
+  if(pl.length)risk.push(['r',pl.length+' atividade(s) do plano atrasada(s)']);
+  pb.forEach(x=>risk.push(['r',`Plano ${esc(x.codigo)} bloqueada: ${esc(x.bloqueio)} (próxima ação: ${esc(x.proxResp)}, ${x.proxData?fmt(pd(x.proxData)):''})`]));
+  const lb=S.lotes.filter(l=>l.conf==='Devolvida'&&!l.dtRetorno);if(lb.length)risk.push(['',lb.length+' lote(s) devolvido(s) aguardando retorno']);
+  if(qc.metaPrazo!=null&&qc.metaPrazo!==''&&P.prazo!=null&&P.prazo<+qc.metaPrazo)risk.push(['r','Cumprimento de prazo abaixo da meta']);
+  const dec=[];['metaPrazo','metaRetrab','metaDev'].forEach(k=>{if(qc[k]==null||qc[k]==='')dec.push({metaPrazo:'Meta de cumprimento de prazo',metaRetrab:'Meta de retrabalho',metaDev:'Meta de devolução de planilhas'}[k])});if(!(S.vcfg||{}).meta)dec.push('Meta de publicação da Vonder e prazo da expansão');
+  const t=(h,b)=>`<div class="card"><div class="h">${h}</div>${b}</div>`;
+  return`<div class="bar">${perSel()}${['tarefas','lotes','plano','fornecedores'].map(k=>`<button class="btn s" data-exp="${k}">Exportar ${k} (CSV)</button>`).join('')}</div>
+  <div class="two">${t('Planejado × realizado',`<div class="row"><span class="t">Progresso ponderado</span><b>${ps.pw==null?'Sem dados suficientes':ps.pw+'%'}</b></div><div class="row"><span class="t">Atividades concluídas</span><b>${ps.n?ps.done+' de '+ps.n:'Sem dados suficientes'}</b></div><div class="row"><span class="t">Concluídas no prazo</span><b>${cc.length?noPrazo+' de '+cc.length:'Sem dados suficientes'}</b></div><div class="row"><span class="t">Atrasadas</span><b>${S.plano.some(x=>x.fim)?pl.length:'Sem dados suficientes'}</b></div>`)}
+  ${t('Tarefas (ClickUp)',S.state==='ok'?`<div class="row"><span class="t">Concluídas no período</span><b>${P.done.length}</b></div><div class="row"><span class="t">Em aberto</span><b>${m.op.length}</b></div><div class="row"><span class="t">Atrasadas</span><b>${m.op.length-m.nodue.length?m.late.length:'Sem dados suficientes'}</b></div><div class="row"><span class="t">Cumprimento de prazo</span><b>${P.prazo==null?'Sem dados suficientes':P.prazo+'%'}</b></div>`:'<div class="k">Abra o Painel executivo para carregar as tarefas.</div>')}
+  ${t('Qualidade do cadastro',`<div class="row"><span class="t">Devolução na 1ª conferência</span><b>${P.dev==null?'Sem dados suficientes':P.dev+'%'}</b></div><div class="row"><span class="t">Retrabalho</span><b>${P.retr==null?'Sem dados suficientes':P.retr+'%'}</b></div><div class="row"><span class="t">Produtos cadastrados</span><b>${P.LC.length?P.LC.reduce((s,l)=>s+(+l.cadastrados||0),0):'Sem dados suficientes'}</b></div>`)}
+  ${t('Motivos de bloqueio e devolução',bars(mot,(mot[0]||[])[1]))}
+  ${t('Pendências por departamento',bars(de,(de[0]||[])[1]))}
+  ${t('Vonder',V?`<div class="row"><span class="t">Publicados</span><b>${nf(V.publicado)??'Sem dados suficientes'}</b></div><div class="row"><span class="t">Cobertura</span><b>${V.elegivel>0&&V.publicado!=null?Math.round(V.publicado/V.elegivel*1000)/10+'%':'Sem dados suficientes'}</b></div><div class="row"><span class="t">Última variação</span><b>${last&&prev&&last.publicado!=null&&prev.publicado!=null?(last.publicado-prev.publicado>0?'+':'')+nf(last.publicado-prev.publicado)+' ('+prev.id+' → '+last.id+')':'Sem dados suficientes'}</b></div>`:'<div class="k">Sem dados suficientes.</div>')}
+  ${t('Expansão por fornecedor',S.forn.length?`<div class="tw"><table>${S.forn.filter(f=>f.elegivel>0&&f.publicado!=null).map(f=>`<tr><td>${esc(f.nome)}</td><td>${Math.round(f.publicado/f.elegivel*100)}%</td></tr>`).join('')||'<tr><td class="stamp">Sem dados suficientes</td></tr>'}</table></div>`:'<div class="k">Sem dados suficientes.</div>')}
+  ${t('Documentação concluída','<div class="k">Sem dados suficientes: o módulo de POPs ainda não foi implantado.</div>')}</div>
+  <div class="two" style="margin-top:16px">${t('Principais riscos',risk.map(([c,x])=>`<div class="al ${c}">${x}</div>`).join('')||'<div class="k">Nenhum risco com os dados atuais.</div>')}${t('Decisões pendentes da gestão',dec.map(x=>`<div class="al">${esc(x)}</div>`).join('')||'<div class="k">Nenhuma.</div>')}</div>`}
+document.addEventListener('click',e=>{const k=e.target.dataset.exp;if(k)dl(k,EXP[k]())});
+document.addEventListener('change',e=>{const t=e.target;
+  if(t.id==='rp'){S.rp=t.value;render()}
+  else if(t.dataset.q&&db)db.doc('config/prod').set({...S.qc,[t.dataset.q]:t.value===''?null:+t.value}).catch(()=>{});
+  else if(t.dataset.qp&&db)db.doc('config/prod').set({...S.qc,pesos:{...(S.qc.pesos||{}),[t.dataset.qp]:t.value===''?null:+t.value}}).catch(()=>{})});
+function soon(t){return`<div class="band"><b>${esc(t)}</b><br>Entra na próxima etapa, no mesmo padrão de rastreabilidade.</div>`}
+function render(){
+  $('#nav').innerHTML=MODS.map(([k,l,s])=>`<button data-v="${k}" class="${S.view===k?'on':''} ${s?'soon':''}">${l}${s?'<small>em breve</small>':''}</button>`).join('');
+  const T={painel:['Painel executivo','Sua operação,<br><mark>num só eixo.</mark>'],tarefas:['Central de tarefas','Quem faz, <mark>até quando.</mark>'],expansao:['Expansão comercial','Do catálogo <mark>à publicação.</mark>'],plano:['Plano de reestruturação','Noventa dias, <mark>um eixo.</mark>'],vonder:['Vonder 360','Do catálogo <mark>ao anúncio.</mark>'],lotes:['Cadastro e pendências','Cada lote, <mark>sem ponto cego.</mark>'],prod:['Produtividade e qualidade','Volume <mark>sem perder qualidade.</mark>'],rel:['Relatórios','O que está acontecendo, <mark>em uma tela.</mark>']}[S.view]||[MODS.find(m=>m[0]===S.view)[1],'Em construção'];
+  const body=S.view==='painel'?painel():S.view==='tarefas'?tarefas():S.view==='expansao'?expansao():S.view==='plano'?plano():S.view==='vonder'?vonder():S.view==='lotes'?lotes():S.view==='prod'?prod():S.view==='rel'?rel():soon(T[0]);
+  $('#main').innerHTML=`<div class="eye">${T[0]}</div><h1>${T[1]}</h1>${body}`}
+
+document.addEventListener('click',e=>{const t=e.target;
+  if(t.dataset.v){S.view=t.dataset.v;render()}
+  if(t.dataset.mode){S.mode=t.dataset.mode;render()}
+  if(t.id==='rf'||t.id==='rf2')load();
+  if(t.id==='add'){const v=$('#nf').value.trim();v&&addF(v)}
+  if(t.id==='seed')seed()});
+document.addEventListener('change',e=>{const t=e.target;
+  if(t.id==='src'){S.src=t.value;load()}
+  else if(t.id==='fil'){S.filial=t.value;render()}
+  else if(t.id==='resp'){S.resp=t.value;render()}
+  else if(t.id==='st'){S.st=t.value;render()}
+  else if(t.dataset.f&&db){const v=t.type==='number'?(t.value===''?null:+t.value):t.value;db.collection('fornecedores').doc(t.dataset.f).set({...S.forn.find(f=>f.id===t.dataset.f),[t.dataset.k]:v,atualizado:Date.now()}).catch(()=>{})}});
+document.addEventListener('input',e=>{if(e.target.id==='q'){S.q=e.target.value;const p=e.target.selectionStart;render();const q=$('#q');q.focus();q.setSelectionRange(p,p)}});
+
+function addF(nome,extra){if(!db)return;const r=db.collection('fornecedores').doc();const {id,...rest}=extra||{};return r.set({nome,filial:'Itajaí',modelo:'A definir',...rest,criado:Date.now()}).catch(()=>{})}
+function seed(){[['Vonder','Itajaí','A definir',{total:16000,erp:2000}],['Fratini','Itajaí','Dropshipping'],['Work','Itajaí','Cross-docking'],['Kala','Itajaí','Cross-docking'],['Pulse','Itajaí'],['DJI','Itajaí'],['Toshiba','Itajaí'],['Multi Kids','Itajaí'],['Litet','Itajaí'],['Fisher-Price','Itajaí'],['Chico Brinquedos','Itajaí'],['Cortag','Itajaí'],['Mondial','Itajaí'],['Colibri','Londrina','Cross-docking'],['DJ Móveis','Londrina']].forEach(([n,f,m,x])=>addF(n,{filial:f,modelo:m||'A definir',...(x||{})}))}
+
+(async()=>{render();
+  try{db=await claude.use('db');
+    if(db){db.collection('fornecedores').onSnapshot(s=>{S.forn=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.nome.localeCompare(b.nome));S.dbOk=true;if(S.view==='expansao'&&!document.activeElement.matches('input,select'))render()},()=>{S.dbOk=false});db.collection('plano').onSnapshot(q=>{S.plano=q.docs.map(d=>({id:d.id,...d.data()}));if(S.view==='plano'&&!S.edit)render()},()=>{});db.doc('config/prod').onSnapshot(d=>{S.qc=(d.exists&&d.data())||{};if((S.view==='prod')&&!document.activeElement.matches('input'))render()},()=>{});db.collection('lotes').onSnapshot(q=>{S.lotes=q.docs.map(d=>({id:d.id,...d.data()}));if((S.view==='lotes'&&!S.ledit)||S.view==='rel'||S.view==='prod')render()},()=>{});db.collection('vonder_hist').onSnapshot(q=>{S.vhist=q.docs.map(d=>({id:d.id,...d.data()}));if(S.view==='vonder')render()},()=>{});db.doc('config/vonder').onSnapshot(d=>{S.vcfg=(d.exists&&d.data())||{};if(S.view==='vonder'&&!document.activeElement.matches('input'))render()},()=>{});db.doc('config/plano').onSnapshot(d=>{S.inicio=(d.exists&&d.data().inicio)||'';if(S.view==='plano'&&!S.edit)render()},()=>{})}else S.dbOk=false}catch(e){S.dbOk=false}
+  load()})();
+</script>
+</body>
+</html>

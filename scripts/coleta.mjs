@@ -1,0 +1,145 @@
+// Coleta diária do ClickUp para data/clickup.json.
+// A rotina chama o MCP do ClickUp e grava cada página em .coleta/; este script
+// diz o que buscar, valida o que foi gravado e mescla no arquivo de dados.
+//
+//   node scripts/coleta.mjs plano [--completa]   prepara a coleta e lista as páginas 0
+//   node scripts/coleta.mjs verificar            valida as páginas e diz se falta alguma
+//   node scripts/coleta.mjs mesclar              grava data/clickup.json
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const DADOS = path.join(RAIZ, 'data', 'clickup.json');
+const TMP = path.join(RAIZ, '.coleta');
+const ESTADO = path.join(TMP, 'estado.json');
+const WORKSPACE = '90131376764'; // Domus Ecommerce
+const MAX_PAG = 10, POR_PAG = 100, LIMITE = MAX_PAG * POR_PAG; // mesmo teto da página: 10 páginas de 100
+const MARGEM = 60 * 60 * 1000; // 1 h de folga na coleta incremental
+const FONTES = {
+  anuncios: { nome: 'Anúncios (Criativo)', filtro: { list_ids: ['901312757364'] } },
+  compras: { nome: 'Compras', filtro: { list_ids: ['901312319816'] } },
+  itajai: { nome: 'Pasta Itajaí-SC', filtro: { folder_ids: ['90137504399'] } },
+  londrina: { nome: 'Pasta Londrina-PR', filtro: { folder_ids: ['90137507791'] } },
+};
+
+const ler = f => JSON.parse(fs.readFileSync(f, 'utf8'));
+const params = (k, p) => ({ workspace_id: WORKSPACE, ...FONTES[k].filtro, include_closed: true, order_by: 'updated', page: p });
+const arq = (k, p) => path.join(TMP, `${k}-${p}.json`);
+const rel = f => path.relative(RAIZ, f).replace(/\\/g, '/');
+const sair = (msg, cod = 1) => { console.log(msg); process.exit(cod) };
+
+function plano(completa) {
+  const atual = fs.existsSync(DADOS) ? ler(DADOS) : { fontes: {} };
+  fs.rmSync(TMP, { recursive: true, force: true });
+  fs.mkdirSync(TMP, { recursive: true });
+  const estado = { inicio: Date.now(), fontes: {} };
+  for (const k of Object.keys(FONTES)) {
+    const sinc = atual.fontes?.[k]?.sincronizado_em;
+    estado.fontes[k] = completa || !sinc ? { modo: 'completa', desde: null } : { modo: 'incremental', desde: sinc - MARGEM };
+  }
+  fs.writeFileSync(ESTADO, JSON.stringify(estado, null, 2));
+  console.log('Coleta preparada. Para cada fonte, chame clickup_filter_tasks com os parâmetros abaixo e grave');
+  console.log('a resposta da ferramenta, sem alterar nada, no arquivo indicado. Depois rode: node scripts/coleta.mjs verificar\n');
+  for (const [k, e] of Object.entries(estado.fontes)) {
+    console.log(`${k} (${e.modo}${e.desde ? ', alteradas desde ' + new Date(e.desde).toISOString() : ''})`);
+    console.log(`  parâmetros: ${JSON.stringify(params(k, 0))}`);
+    console.log(`  gravar em:  ${rel(arq(k, 0))}`);
+  }
+}
+
+// Confere uma página gravada. Devolve a lista de problemas (vazia se estiver ok).
+function validar(k, p, d) {
+  const e = [], lista = FONTES[k].filtro.list_ids?.[0], num = /^\d+$/;
+  if (!d || !Array.isArray(d.tasks)) return ['falta o array "tasks"'];
+  if (d.page !== p) e.push(`"page" é ${d.page}, esperado ${p}`);
+  if (typeof d.has_more !== 'boolean') e.push('"has_more" ausente');
+  if (d.count !== d.tasks.length) e.push(`"count" (${d.count}) difere do número de tarefas (${d.tasks.length})`);
+  if (d.has_more && d.tasks.length !== POR_PAG) e.push(`página com has_more=true deveria ter ${POR_PAG} tarefas`);
+  const ids = new Set();
+  d.tasks.forEach((t, i) => {
+    const q = `tarefa ${i} (${t?.id})`;
+    if (!t || typeof t.id !== 'string' || !t.id) return e.push(`tarefa ${i} sem id`);
+    if (ids.has(t.id)) e.push(`${q} repetida`); ids.add(t.id);
+    if (typeof t.name !== 'string') e.push(`${q} sem name`);
+    if (typeof t.status !== 'string') e.push(`${q} sem status`);
+    if (t.url !== `https://app.clickup.com/t/${t.id}`) e.push(`${q} com url diferente do id`);
+    if (!num.test(t.date_updated ?? '')) e.push(`${q} com date_updated inválido`);
+    for (const c of ['date_closed', 'due_date']) if (t[c] != null && !num.test(t[c])) e.push(`${q} com ${c} inválido`);
+    if (!Array.isArray(t.assignees) || t.assignees.some(a => a?.username !== null && typeof a?.username !== 'string')) e.push(`${q} com assignees inválido`);
+    if (!Array.isArray(t.tags) || t.tags.some(g => typeof g?.name !== 'string')) e.push(`${q} com tags inválido`);
+    if (lista && t.list?.id !== lista) e.push(`${q} não é da lista ${lista}`);
+    if (i && +t.date_updated > +d.tasks[i - 1].date_updated) e.push(`${q} fora da ordem por date_updated (a ordem original foi alterada?)`);
+  });
+  return e;
+}
+
+// Lê as páginas gravadas de uma fonte e diz se a coleta dela terminou.
+function situacao(k, e) {
+  const tarefas = [];
+  for (let p = 0; ; p++) {
+    const f = arq(k, p);
+    if (!fs.existsSync(f)) return { falta: p, tarefas };
+    let d;
+    try { d = ler(f) } catch (x) { return { erro: `${rel(f)} não é JSON válido: ${x.message}` } }
+    const prob = validar(k, p, d);
+    if (prob.length) return { erro: `${rel(f)}: ${prob.slice(0, 5).join('; ')}${prob.length > 5 ? ` (+${prob.length - 5})` : ''}` };
+    tarefas.push(...d.tasks);
+    const antigas = e.desde != null && d.tasks.length && +d.tasks[d.tasks.length - 1].date_updated < e.desde;
+    if (!d.has_more || antigas || p + 1 >= MAX_PAG) return { ok: true, paginas: p + 1, tarefas };
+  }
+}
+
+function estado() {
+  if (!fs.existsSync(ESTADO)) sair('Rode primeiro: node scripts/coleta.mjs plano');
+  return ler(ESTADO);
+}
+
+function verificar() {
+  const est = estado();
+  let pendente = false;
+  for (const [k, e] of Object.entries(est.fontes)) {
+    const s = situacao(k, e);
+    if (s.ok) console.log(`${k}: OK (${s.paginas} página(s), ${s.tarefas.length} tarefas)`);
+    else {
+      pendente = true;
+      if (s.erro) console.log(`${k}: ERRO ${s.erro}\n  refaça a chamada dessa página e grave a resposta de novo, sem alterar nada`);
+      else console.log(`${k}: BUSCAR página ${s.falta}\n  parâmetros: ${JSON.stringify(params(k, s.falta))}\n  gravar em:  ${rel(arq(k, s.falta))}`);
+    }
+  }
+  if (pendente) sair('\nAinda há páginas a buscar ou corrigir. Depois rode verificar de novo.');
+  console.log('\nTudo certo. Rode: node scripts/coleta.mjs mesclar');
+}
+
+function mesclar() {
+  const est = estado();
+  const atual = fs.existsSync(DADOS) ? ler(DADOS) : { fontes: {} };
+  const saida = { gerado_em: new Date(est.inicio).toISOString(), workspace_id: WORKSPACE, fontes: {} };
+  for (const [k, e] of Object.entries(est.fontes)) {
+    const s = situacao(k, e);
+    if (!s.ok) sair(`${k} ainda não está completa. Rode verificar.`);
+    const m = new Map(e.modo === 'completa' ? [] : (atual.fontes?.[k]?.tarefas || []).map(t => [t.id, t]));
+    let novas = 0, alteradas = 0;
+    for (const t of s.tarefas) {
+      const v = m.get(t.id);
+      if (!v) novas++; else if (JSON.stringify(v) !== JSON.stringify(t)) alteradas++;
+      m.set(t.id, t);
+    }
+    const tarefas = [...m.values()].sort((a, b) => +b.date_updated - +a.date_updated).slice(0, LIMITE);
+    saida.fontes[k] = { nome: FONTES[k].nome, sincronizado_em: est.inicio, modo: e.modo, tarefas };
+    console.log(`${k}: ${e.modo}, ${novas} nova(s), ${alteradas} alterada(s), ${tarefas.length} no arquivo`);
+  }
+  // Uma tarefa por linha, para o histórico do git mostrar o que mudou.
+  const fonte = ([k, f]) => `    ${JSON.stringify(k)}: {"nome": ${JSON.stringify(f.nome)}, "sincronizado_em": ${f.sincronizado_em}, "modo": ${JSON.stringify(f.modo)}, "tarefas": [\n${f.tarefas.map(t => '      ' + JSON.stringify(t)).join(',\n')}\n    ]}`;
+  const txt = `{\n  "gerado_em": ${JSON.stringify(saida.gerado_em)},\n  "workspace_id": ${JSON.stringify(WORKSPACE)},\n  "fontes": {\n${Object.entries(saida.fontes).map(fonte).join(',\n')}\n  }\n}\n`;
+  JSON.parse(txt);
+  fs.mkdirSync(path.dirname(DADOS), { recursive: true });
+  fs.writeFileSync(DADOS, txt);
+  console.log(`\n${rel(DADOS)} gravado (${saida.gerado_em}).`);
+}
+
+const [cmd, ...arg] = process.argv.slice(2);
+if (cmd === 'plano') plano(arg.includes('--completa'));
+else if (cmd === 'verificar') verificar();
+else if (cmd === 'mesclar') mesclar();
+else sair('Uso: node scripts/coleta.mjs plano [--completa] | verificar | mesclar');
