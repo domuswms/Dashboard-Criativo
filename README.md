@@ -6,7 +6,7 @@ Versão publicada no claude.ai: https://claude.ai/artifact/Rv7ZTCr3NUoHNUyVQhPYg
 
 ## Hospedagem e dados
 
-A página fica no GitHub Pages. As tarefas do ClickUp vêm de `data/clickup.json`, que uma rotina do Claude Code atualiza todo dia às 7h (horário de Brasília) pelo conector do ClickUp, com commit no `main`. Procedimento e regras da coleta em [ROTINA.md](ROTINA.md).
+A página fica no GitHub Pages. As tarefas do ClickUp vêm de `data/clickup.json`, que uma rotina do Claude Code atualiza todo dia às 7h (horário de Brasília) pela API do ClickUp (`node scripts/coleta.mjs auto`, com o token em `CLICKUP_TOKEN`) ou, sem token, pelo conector do ClickUp, com commit no `main`. Procedimento e regras da coleta em [ROTINA.md](ROTINA.md).
 
 O repositório é público, então nomes de tarefas, responsáveis, tags e links das quatro fontes ficam visíveis para qualquer pessoa.
 
@@ -41,7 +41,7 @@ Itens do briefing original ainda sem módulo: treinamento do Tiny ERP, conteúdo
 
 ## ClickUp
 
-Workspace `Domus Ecommerce` (`90131376764`). A rotina consulta com `clickup_filter_tasks`, incluindo concluídas, por ordem de atualização, e guarda até 1.000 tarefas por fonte (10 páginas de 100), as atualizadas mais recentemente. A página mostra o estado do horário da coleta, não em tempo real.
+Workspace `Domus Ecommerce` (`90131376764`). A rotina consulta a API do ClickUp (ou `clickup_filter_tasks` do conector, no modo manual), incluindo concluídas e subtarefas, por ordem de atualização, e guarda até 1.000 tarefas por fonte (10 páginas de 100), as atualizadas mais recentemente. A página mostra o estado do horário da coleta, não em tempo real.
 
 Fontes selecionáveis na página:
 

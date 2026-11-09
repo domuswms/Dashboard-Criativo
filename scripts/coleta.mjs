@@ -1,7 +1,9 @@
 // Coleta diária do ClickUp para data/clickup.json.
-// A rotina chama o MCP do ClickUp e grava cada página em .coleta/; este script
+// Modo automático: o script busca na API do ClickUp (CLICKUP_TOKEN) e faz tudo sozinho.
+// Modo manual: a rotina chama o MCP do ClickUp e grava cada página em .coleta/; este script
 // diz o que buscar, valida o que foi gravado e mescla no arquivo de dados.
 //
+//   node scripts/coleta.mjs auto [--completa]    busca na API, valida e grava data/clickup.json
 //   node scripts/coleta.mjs plano [--completa]   prepara a coleta e lista as páginas 0
 //   node scripts/coleta.mjs verificar            valida as páginas e diz se falta alguma
 //   node scripts/coleta.mjs mesclar              grava data/clickup.json
@@ -15,6 +17,8 @@ const DADOS = path.join(RAIZ, 'data', 'clickup.json');
 const TMP = path.join(RAIZ, '.coleta');
 const ESTADO = path.join(TMP, 'estado.json');
 const WORKSPACE = '90131376764'; // Domus Ecommerce
+const API = process.env.CLICKUP_API_URL || 'https://api.clickup.com/api/v2';
+const TENTATIVAS = 3;
 const MAX_PAG = 10, POR_PAG = 100, LIMITE = MAX_PAG * POR_PAG; // mesmo teto da página: 10 páginas de 100
 const MARGEM = 60 * 60 * 1000; // 1 h de folga na coleta incremental
 const FONTES = {
@@ -30,7 +34,7 @@ const arq = (k, p) => path.join(TMP, `${k}-${p}.json`);
 const rel = f => path.relative(RAIZ, f).replace(/\\/g, '/');
 const sair = (msg, cod = 1) => { console.log(msg); process.exit(cod) };
 
-function plano(completa) {
+function plano(completa, silencioso) {
   const atual = fs.existsSync(DADOS) ? ler(DADOS) : { fontes: {} };
   fs.rmSync(TMP, { recursive: true, force: true });
   fs.mkdirSync(TMP, { recursive: true });
@@ -40,6 +44,7 @@ function plano(completa) {
     estado.fontes[k] = completa || !sinc ? { modo: 'completa', desde: null } : { modo: 'incremental', desde: sinc - MARGEM };
   }
   fs.writeFileSync(ESTADO, JSON.stringify(estado, null, 2));
+  if (silencioso) return estado;
   console.log('Coleta preparada. Para cada fonte, chame clickup_filter_tasks com os parâmetros abaixo e grave');
   console.log('a resposta da ferramenta, sem alterar nada, no arquivo indicado. Depois rode: node scripts/coleta.mjs verificar\n');
   for (const [k, e] of Object.entries(estado.fontes)) {
@@ -82,9 +87,9 @@ function situacao(k, e) {
     const f = arq(k, p);
     if (!fs.existsSync(f)) return { falta: p, tarefas };
     let d;
-    try { d = ler(f) } catch (x) { return { erro: `${rel(f)} não é JSON válido: ${x.message}` } }
+    try { d = ler(f) } catch (x) { return { pagina: p, erro: `${rel(f)} não é JSON válido: ${x.message}` } }
     const prob = validar(k, p, d);
-    if (prob.length) return { erro: `${rel(f)}: ${prob.slice(0, 5).join('; ')}${prob.length > 5 ? ` (+${prob.length - 5})` : ''}` };
+    if (prob.length) return { pagina: p, erro: `${rel(f)}: ${prob.slice(0, 5).join('; ')}${prob.length > 5 ? ` (+${prob.length - 5})` : ''}` };
     tarefas.push(...d.tasks);
     const antigas = e.desde != null && d.tasks.length && +d.tasks[d.tasks.length - 1].date_updated < e.desde;
     if (!d.has_more || antigas || p + 1 >= MAX_PAG) return { ok: true, paginas: p + 1, tarefas };
@@ -139,6 +144,59 @@ function mesclar() {
   console.log(`\n${rel(DADOS)} gravado (${saida.gerado_em}).`);
 }
 
+// Uma página da API do ClickUp, no mesmo formato da resposta de clickup_filter_tasks do conector,
+// para que verificar e mesclar valham igual nos dois modos.
+async function buscarPagina(k, p) {
+  const q = new URLSearchParams({ include_closed: 'true', subtasks: 'true', order_by: 'updated', page: String(p) });
+  for (const id of FONTES[k].filtro.list_ids || []) q.append('list_ids[]', id);
+  for (const id of FONTES[k].filtro.folder_ids || []) q.append('project_ids[]', id); // pasta = "project" na API v2
+  const r = await fetch(`${API}/team/${WORKSPACE}/task?${q}`, { headers: { Authorization: process.env.CLICKUP_TOKEN } });
+  if (!r.ok) throw Object.assign(new Error(`HTTP ${r.status}: ${(await r.text()).slice(0, 200)}`), { status: r.status });
+  const d = await r.json();
+  if (!Array.isArray(d.tasks)) throw new Error('resposta sem "tasks"');
+  const tasks = d.tasks.map(t => ({
+    id: t.id, custom_id: t.custom_id ?? null, name: t.name, status: t.status?.status, url: t.url,
+    priority: t.priority?.priority ?? null,
+    assignees: (t.assignees || []).map(a => ({ id: a.id, username: a.username ?? null })),
+    tags: (t.tags || []).map(g => ({ name: g.name })),
+    due_date: t.due_date ?? null, date_updated: t.date_updated, date_closed: t.date_closed ?? null,
+    list: { id: t.list?.id, name: t.list?.name },
+  }));
+  const mais = typeof d.last_page === 'boolean' ? !d.last_page : tasks.length === POR_PAG;
+  return { tasks, count: tasks.length, page: p, has_more: mais, next_page: mais ? p + 1 : null };
+}
+
+async function auto(completa) {
+  if (!process.env.CLICKUP_TOKEN) sair('Coleta automática indisponível: CLICKUP_TOKEN não definido. Siga o modo manual do ROTINA.md.', 3);
+  const est = plano(completa, true);
+  for (const [k, e] of Object.entries(est.fontes)) {
+    const vezes = {};
+    let ultimo = '';
+    for (;;) {
+      const s = situacao(k, e);
+      if (s.ok) { console.log(`${k}: OK (${e.modo}, ${s.paginas} página(s), ${s.tarefas.length} tarefas)`); break; }
+      const p = s.falta ?? s.pagina;
+      if (s.erro) {
+        ultimo = s.erro;
+        console.log(`${k}: página ${p} não conferiu: ${s.erro}`);
+        fs.rmSync(arq(k, p), { force: true });
+      }
+      vezes[p] = (vezes[p] || 0) + 1;
+      if (vezes[p] > TENTATIVAS) sair(`ERRO ${k}, página ${p}, após ${TENTATIVAS} tentativas: ${ultimo}\nNada foi gravado em ${rel(DADOS)}.`);
+      try {
+        fs.writeFileSync(arq(k, p), JSON.stringify(await buscarPagina(k, p)));
+      } catch (x) {
+        ultimo = x.message;
+        console.log(`${k}: página ${p} falhou (tentativa ${vezes[p]}): ${x.message}`);
+        if (x.status === 401) sair(`ERRO ${k}, página ${p}: ${x.message}. Confira o CLICKUP_TOKEN. Nada foi gravado em ${rel(DADOS)}.`);
+        if (vezes[p] < TENTATIVAS) await new Promise(ok => setTimeout(ok, (x.status === 429 ? 30000 : 5000) * vezes[p]));
+      }
+    }
+  }
+  console.log('');
+  mesclar();
+}
+
 // Envia o arquivo de dados ao Web App do Apps Script, que atualiza a planilha pelo ID da tarefa.
 // Variáveis de ambiente: APPS_SCRIPT_URL (URL /exec do Web App) e APPS_SCRIPT_TOKEN.
 async function enviar() {
@@ -161,8 +219,9 @@ async function enviar() {
 }
 
 const [cmd, ...arg] = process.argv.slice(2);
-if (cmd === 'plano') plano(arg.includes('--completa'));
+if (cmd === 'auto') await auto(arg.includes('--completa'));
+else if (cmd === 'plano') plano(arg.includes('--completa'));
 else if (cmd === 'verificar') verificar();
 else if (cmd === 'mesclar') mesclar();
 else if (cmd === 'enviar') await enviar();
-else sair('Uso: node scripts/coleta.mjs plano [--completa] | verificar | mesclar | enviar');
+else sair('Uso: node scripts/coleta.mjs auto [--completa] | plano [--completa] | verificar | mesclar | enviar');
